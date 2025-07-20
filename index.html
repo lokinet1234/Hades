@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Umbra</title>
+    <!-- Using a refined font stack for a clean, high-end feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --background-dark: #0A0A0A;
+            --container-stroke: rgba(255, 255, 255, 0.1);
+            --text-primary: #F3F3F3;
+            --text-secondary: #A3A3A3;
+            --brand-primary: #007AFF; /* Apple's vibrant blue for our stateful button */
+            --font-main: 'DM Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--background-dark);
+            font-family: var(--font-main);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- 1. Hero Parallax (from Aceternity) --- */
+        #hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            transform: translateY(var(--scroll-y, 0px));
+        }
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 40ch;
+            margin: 1rem auto 2rem;
+        }
+
+        /* --- 2. Floating Nav (from Aceternity) --- */
+        .floating-nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem;
+            border: 1px solid var(--container-stroke);
+            border-radius: 99px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 50;
+            transition: top 0.3s ease-in-out;
+        }
+        .floating-nav.hidden { top: -100px; } /* Hide effect */
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* --- 3. Stateful Button (from Aceternity) --- */
+        .stateful-button {
+            border: 1px solid var(--brand-primary);
+            border-radius: 99px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            color: var(--brand-primary);
+            background: transparent;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stateful-button:hover {
+            color: #fff;
+        }
+        .stateful-button::before { /* The background fill effect */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--brand-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: -1;
+        }
+        .stateful-button:hover::before { transform: scaleX(1); }
+        
+
+        /* --- 4. Bento Grid Container (from Aceternity) --- */
+        .main-content {
+            padding: 6rem 2rem;
+            background-color: #000; /* A true black for content contrast */
+            position: relative;
+            z-index: 5;
+        }
+        .bento-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            gap: 1.5rem;
+        }
+        .bento-card {
+            background-color: #121212;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--container-stroke);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .bento-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .bento-card.span-2 { grid-column: span 2; }
+        .bento-card.row-2 { grid-row: span 2; }
+        .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .card-description { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 2: Floating Nav in Action -->
+    <nav class="floating-nav" id="floating-nav">
+        <a href="#hero" class="nav-item">Introduction</a>
+        <a href="#grid" class="nav-item">The Cells</a>
+        <a href="#about" class="nav-item">Manifesto</a>
+    </nav>
+
+    <!-- 1: Hero Parallax in Action -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Panopticon</h1>
+            <p class="hero-subtitle">The ultimate design discipline protocol. Enter a state of perpetual refinement where excellence is self-enforced. Your work is your record.</p>
+            
+            <!-- 3: Stateful Button in Action -->
+            <button class="stateful-button">Begin Assessment</button>
+        </div>
+    </section>
+    
+    <!-- 4: Bento Grid Container in Action -->
+    <section class="main-content" id="grid">
+        <div class="bento-grid">
+            <div class="bento-card span-2 row-2">
+                <h3 class="card-title">Cell 001: The Brief</h3>
+                <p class="card-description">Your primary task is to solve a complex design problem under constant, though invisible, observation. You will be provided with a set of tools and assets. The rest is a test of your discipline, creativity, and will. There are no shortcuts, only evidence of effort.</p>
+            </div>
+             <div class="bento-card">
+                <h3 class="card-title">Total Visibility</h3>
+                <p class="card-description">All versions are logged. There are no drafts. Every keystroke contributes to your final evaluation.</p>
+            </div>
+            <div class="bento-card">
+                <h3 class="card-title">The Watchers</h3>
+                <p class="card-description">An anonymous panel of industry leaders. Their standards are absolute.</p>
+            </div>
+             <div class="bento-card span-3" id="about">
+                <h3 class="card-title">The Panopticon Manifesto</h3>
+                <p class="card-description">We believe pressure creates diamonds. That radical transparency is the only true catalyst for growth. This is not a challenge; it is a crucible. It is designed to find the one percent of the one percent who do not just create, but forge. Who do not just design, but define.</p>
+            </div>
+        </div>
+    </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        /* --- Logic for Hero Parallax (1) --- */
+        const heroContent = document.querySelector('.hero-content');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            heroContent.style.setProperty('--scroll-y', `${scrollY * -0.5}px`);
+        });
+
+        /* --- Logic for Floating Nav (2) --- */
+        const nav = document.getElementById('floating-nav');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY && window.scrollY > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+    });
+</script>
+</body>
+</html>
